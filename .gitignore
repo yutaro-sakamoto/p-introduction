@@ -1,0 +1,16 @@
+# P compiler output
+PGenerated/
+PCheckerOutput/
+
+# .NET build artifacts
+bin/
+obj/
+*.dll
+*.pdb
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+._*
