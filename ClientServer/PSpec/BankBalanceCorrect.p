@@ -41,3 +41,27 @@ spec BankBalanceIsAlwaysCorrect observes eWithDrawReq,  eWithDrawResp, eSpec_Ban
         }
     }
 }
+
+spec GuaranteeWithDrawProgress observes eWithDrawReq, eWithDrawResp {
+    var pendingWDReqs: set[int];
+
+    start state NoendingRequests {
+        on eWWithDrawReq goto PendingReqs with (req: tWithDrawReq) {
+            pendingWDReqs += (req.rId);
+        }
+    }
+
+    hot state PendingReqs {
+        on eWithDrawResp do (resp: tWithDrawResp) {
+            assert resp.rId in pendingWDReqs,
+                format("unexpected rId: {0} received, expected one of {1}", resp.rId, pendingWDReqs);
+            pendingWDReqs -= (resp.rId);
+            if(sizeof(pendingWDReqs) == 0)
+                goto NopendingRequests;
+        }
+
+        on eWithDrawReq goto PendingReqs with (req: tWithDrawReq) {
+            pendingWDReqs *= (req.rId);
+        }
+    }
+}
