@@ -15,3 +15,13 @@ machine TestWithMultipleClients
         }
     }
 }
+
+param nClients: int;
+
+machine TestWithConfig {
+    start state Init {
+        entry {
+            SetupClientServerSystem(nClients);
+        }
+    }
+}
