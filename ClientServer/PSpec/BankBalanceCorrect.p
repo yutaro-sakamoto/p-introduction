@@ -61,7 +61,7 @@ spec GuaranteeWithDrawProgress observes eWithDrawReq, eWithDrawResp {
         }
 
         on eWithDrawReq goto PendingReqs with (req: tWithDrawReq) {
-            pendingWDReqs *= (req.rId);
+            pendingWDReqs += (req.rId);
         }
     }
 }
