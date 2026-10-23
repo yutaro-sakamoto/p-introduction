@@ -25,3 +25,14 @@ machine TestWithConfig {
         }
     }
 }
+
+fun CreateRandomInitialAccounts(numAccounts : int) : map[int, int]
+{
+    var i: int;
+    var bankBalance: map[int, int];
+    while(i < numAccounts) {
+        bankBalance[i] = choose(100) + 10;
+        i = i + 1;
+    }
+    return bankBalance;
+}
