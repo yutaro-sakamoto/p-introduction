@@ -36,3 +36,23 @@ fun CreateRandomInitialAccounts(numAccounts : int) : map[int, int]
     }
     return bankBalance;
 }
+
+fun SetupClientServerSystem(numClients: int)
+{
+    var i: int;
+    var server: BankServer;
+    var accountIds: seq[int];
+    var initAccBalance: map[int, int];
+
+    initAccBalance = CreateRandomInitialAccounts(numClients);
+    server = new BankServer(initAccBalance);
+
+    announce eSpec_BankBalanceIsAlwaysCorrect_Init, initAccBalance;
+
+    accountIds = key(initAccBalance);
+
+    while(i < sizeof(accountIds)) {
+        new Client((serv = server, accountId = accountIds[i], balance = initAccBalance[accountIds[i]]));
+        i = i + 1;
+    }
+}
