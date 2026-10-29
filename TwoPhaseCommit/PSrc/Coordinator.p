@@ -16,3 +16,5 @@ enum tTransStatus {
 
 event eWriteTransReq : tWriteTransReq;
 event eWriteTransResp : tWriteTransResp;
+event eReadTransReq: tReadTransReq;
+event eReadTransResp: tReadTransResp;
